@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "9Y19VZEpKgmMat0eJcryKVZDEggyZhtdwuNSFUOUXztTDNOeH0/j6Ym/saufkLaEK1bw0+6ivKyUWPfrOXYKBw==",
+  "success": true,
+  "projectFilePath": "C:\\Development\\GitHubDesktop\\MindMapAPI\\MindMapAPI\\MindMapAPI.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\andop\\.nuget\\packages\\microsoft.visualstudio.azure.containers.tools.targets\\1.10.8\\microsoft.visualstudio.azure.containers.tools.targets.1.10.8.nupkg.sha512"
+  ],
+  "logs": []
+}
