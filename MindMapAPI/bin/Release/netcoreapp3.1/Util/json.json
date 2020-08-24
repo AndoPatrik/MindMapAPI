@@ -1,0 +1,28 @@
+{
+  "boxes": [
+    {
+      "name": "box0",
+      "someprop0": "somevalue0",
+      "someprop2": "somevalue2",
+      "someprop3": "somevalue3"
+    },
+    {
+      "name": "box1",
+      "someprop0": "somevalue0",
+      "someprop2": "somevalue2",
+      "someprop3": "somevalue3"
+    }
+  ],
+  "connections": [
+    {
+      "a": "box1",
+      "b": "box2",
+      "c": "#f00"
+    },
+    {
+      "a": "box1",
+      "b": "box3",
+      "c": "#0f0"
+    }
+  ]
+}

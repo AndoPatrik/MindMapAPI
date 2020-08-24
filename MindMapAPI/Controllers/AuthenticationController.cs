@@ -6,6 +6,8 @@ using Microsoft.IdentityModel.Tokens;
 using MindMapAPI.Models;
 using Microsoft.AspNetCore.Authorization;
 using System.Collections.Generic;
+using MindMapAPI.Util;
+using MongoDB.Bson;
 
 namespace MindMapAPI.Controllers
 {
@@ -13,15 +15,19 @@ namespace MindMapAPI.Controllers
     [ApiController]
     public class AuthenticationController : ControllerBase
     {
-        static List<User> users = new List<User>() { new User("Admin", "Pw") };
+        //TODO: Dependecy Injection
+        private MongoConnection mongo = new MongoConnection("MindMapDb");
+
+        static List<TestUser> users = new List<TestUser>() { new TestUser("Admin", "Pw") };
 
         // POST: api/Authentication
         [HttpPost]
-        public IActionResult AuthenticateUser([FromBody]User user)
+        public IActionResult AuthenticateUser([FromBody]TestUser inputUser)
         {
-            var foundUser = users.Find(x => x.Name == user.Name);
+            var mongoUser = mongo.LoadUserByName(inputUser.Name);
+            var hashedpw = Encryption.CreateMD5HAsh(inputUser.Password);
 
-            if (foundUser is null || foundUser.Password != user.Password) 
+            if (mongoUser is null || hashedpw != mongoUser.Password.ToUpper()) 
             {
                 return Unauthorized("Incorrect credentials. JWT is not granted.");
             }
@@ -61,8 +67,19 @@ namespace MindMapAPI.Controllers
                 return Conflict("Incorrect fields or data to register new user.");
             }
 
-            users.Add(new User(user.Name, user.Password));
-            return Ok("User created in the temp list.");
+            string pwToBeHashed = user.Password;
+            user.Password = Encryption.CreateMD5HAsh(pwToBeHashed);
+
+            try
+            {
+                mongo.InsertRecord<User>("Customer", user);
+                return Ok("User created in the temp list.");
+            }
+            catch (Exception) 
+            {
+                return Conflict("Conflict happend during user insertion");
+            }
+
         }
 
     }

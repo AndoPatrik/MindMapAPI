@@ -1,21 +1,17 @@
-﻿namespace MindMapAPI.Models
+﻿using MongoDB.Bson;
+using MongoDB.Bson.Serialization.Attributes;
+
+namespace MindMapAPI.Models
 {
     public class User
     {
-        private string name;
-        private string password;
-
-        public User() 
-        {
-        }
-
-        public User(string name, string password)
-        {
-            this.name = name;
-            this.password = password;
-        }
-
-        public string Name { get => name; set => name = value; }
-        public string Password { get => password; set => password = value; }
+        [BsonId]
+        public ObjectId Id { get; set; }
+        [BsonElement("name")]
+        public string Name { get; set; }
+        [BsonElement("password")]
+        public string Password { get; set; }
+        [BsonElement("email")]
+        public string Email { get; set; }
     }
 }
