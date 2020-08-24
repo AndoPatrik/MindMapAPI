@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using MindMapAPI.Models;
+using MindMapAPI.Util;
+using MongoDB.Bson;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -12,11 +15,13 @@ namespace MindMapAPI.Controllers
     [ApiController]
     public class ProjectsController : ControllerBase
     {
+        MongoConnection db = new MongoConnection("MindMapDb");
+
         // GET: api/<ProjectsController>
         [HttpGet]
-        public IEnumerable<string> Get()
+        public object Get()
         {
-            return new string[] { "value1", "value2" };
+            return db.LoadProjectById(new ObjectId("5f43cd71d5cf2d48715bd088"));
         }
 
         // GET api/<ProjectsController>/5

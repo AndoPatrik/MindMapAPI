@@ -57,5 +57,11 @@ namespace MindMapAPI.Util
             var coll = db.GetCollection<User>("Users");
             return coll.Find(u => u.Id == id).First();
         }
+
+        public Project LoadProjectById(ObjectId id)
+        {
+            var coll = db.GetCollection<Project>("Project");
+            return coll.Find(p => p.Id == id).First();
+        }
     }
 }
